@@ -1,0 +1,6 @@
+skills/
+skills-lock.json
+CLAUDE.md
+*.pdf
+*.png
+!assets/*.png

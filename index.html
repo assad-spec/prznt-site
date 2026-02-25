@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prznt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg:    #FAF9F6;
+            --ink:   #2D2B28;
+            --muted: #6B655D;
+            --slate: #A89B7A;
+            --rule:  #E8E6E1;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Grain overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ── Slider ───────────────────────── */
+        .slider {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100vh;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .slider::-webkit-scrollbar { display: none; }
+
+        /* ── Panel ────────────────────────── */
+        .panel {
+            flex: 0 0 100vw;
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 80px;
+        }
+
+        /* ── Wordmark ─────────────────────── */
+        .wordmark {
+            position: absolute;
+            top: 40px;
+            left: 80px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.20em;
+            color: var(--ink);
+        }
+
+        /* ── Hero ─────────────────────────── */
+        .hero-headline {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 84px;
+            font-weight: 400;
+            line-height: 1.07;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+            max-width: 820px;
+        }
+
+        .hero-sub {
+            margin-top: 32px;
+            font-size: 17px;
+            font-weight: 300;
+            color: var(--muted);
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Process ──────────────────────── */
+        .process {
+            width: 100%;
+            max-width: 680px;
+        }
+
+        .process-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            align-items: baseline;
+            padding: 36px 0;
+            border-top: 1px solid var(--rule);
+        }
+
+        .process-row:last-child {
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .process-label {
+            font-size: 26px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .process-desc {
+            font-size: 22px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .process-close {
+            margin-top: 36px;
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ── Contact ──────────────────────── */
+        .contact-layout {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            width: 100%;
+        }
+
+        .contact-photo {
+            flex: 0 0 44%;
+            height: clamp(340px, 65vh, 600px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-photo img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            -webkit-mask-image:
+                linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+                linear-gradient(to right,  transparent 0%, black 18%, black 88%, transparent 100%);
+            -webkit-mask-composite: destination-in;
+            mask-image:
+                linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+                linear-gradient(to right,  transparent 0%, black 18%, black 88%, transparent 100%);
+            mask-composite: intersect;
+        }
+
+        .contact-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .contact-head {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 56px;
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        .contact-email {
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 4px;
+            align-self: flex-start;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .contact-email:hover {
+            color: var(--slate);
+            border-color: var(--slate);
+        }
+
+        .contact-close {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── Arrows ───────────────────────── */
+        .arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 20px;
+            padding: 24px 32px;
+            z-index: 1000;
+            transition: color 0.2s, opacity 0.2s;
+            line-height: 1;
+            opacity: 1;
+        }
+
+        .arrow:hover { color: var(--ink); }
+
+        .arrow.hidden { opacity: 0; pointer-events: none; }
+
+        .arrow-prev { left: 0; }
+        .arrow-next { right: 0; }
+
+        /* ── Dot nav ──────────────────────── */
+        .dots {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--rule);
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+            padding: 0;
+        }
+
+        .dot.active {
+            background: var(--slate);
+        }
+
+        /* ── Animations ───────────────────── */
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .a1 { opacity: 0; animation: rise 0.7s ease 0.05s forwards; }
+        .a2 { opacity: 0; animation: rise 0.8s ease 0.20s forwards; }
+        .a3 { opacity: 0; animation: rise 0.7s ease 0.35s forwards; }
+        .a4 { opacity: 0; animation: rise 0.7s ease 0.10s forwards; }
+        .a5 { opacity: 0; animation: rise 0.7s ease 0.10s forwards; }
+
+        /* ── Process two-column layout ───────── */
+        .process-layout {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .process-layout .process {
+            width: auto;
+            flex: 1;
+            min-width: 0;
+            max-width: 480px;
+        }
+
+        .process-diagram {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        /* ── Illustration slot ────────────── */
+        .illustration-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .methodology-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .illustration-handwriting {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .illustration-date {
+            position: absolute;
+            bottom: -20px;
+            right: 0;
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--muted);
+            letter-spacing: 0.06em;
+            opacity: 0.6;
+        }
+
+        /* ── Mobile ───────────────────────── */
+        @media (max-width: 768px) {
+            .slider {
+                flex-direction: column;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                scroll-snap-type: y mandatory;
+            }
+
+            .panel {
+                flex: 0 0 100vh;
+                width: 100vw;
+                height: 100vh;
+                padding: 0 32px;
+            }
+
+            .wordmark {
+                left: 32px;
+                top: 32px;
+            }
+
+            .hero-headline {
+                font-size: 42px;
+                letter-spacing: -0.3px;
+            }
+
+            .hero-sub { font-size: 15px; margin-top: 24px; }
+
+            .process { max-width: 100%; }
+
+            .process-row {
+                grid-template-columns: 1fr;
+                gap: 6px;
+                padding: 20px 0;
+            }
+
+            .process-label { font-size: 18px; }
+            .process-desc  { font-size: 18px; }
+
+            .contact-head  { font-size: 40px; }
+            .contact-email { font-size: 20px; }
+
+            .contact-photo { display: none; }
+            .contact-layout { display: block; }
+
+            .arrow { display: none; }
+            .process-diagram { display: none; }
+            .process-layout .process { max-width: 100%; }
+
+            .dots { bottom: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slider" id="slider">
+
+        <!-- Panel 1: Hero -->
+        <div class="panel">
+            <div class="wordmark a1">Prznt</div>
+            <div>
+                <h1 class="hero-headline a2">Prznt learns how you work and builds custom AI for you.</h1>
+                <p class="hero-sub a2">One month. Start to Finish. For CEOs only.</p>
+            </div>
+        </div>
+
+        <!-- Panel 2: Process -->
+        <div class="panel">
+            <div class="process-layout">
+                <div class="process a3">
+                    <div class="process-row">
+                        <div class="process-label">Interview.</div>
+                        <div class="process-desc">One structured session. We learn how you make decisions — not just what you do.</div>
+                    </div>
+                    <div class="process-row">
+                        <div class="process-label">Build.</div>
+                        <div class="process-desc">Your workflow becomes AI. Precise, personal, and built to work exactly as you would.</div>
+                    </div>
+                    <div class="process-row">
+                        <div class="process-label">Deploy.</div>
+                        <div class="process-desc">One month. Your AI is ready. You do more of what matters.</div>
+                    </div>
+                    <p class="process-close">One month. Start to finish.</p>
+                </div>
+
+                <div class="process-diagram a4">
+                    <div class="illustration-wrap">
+                        <!-- Digital base -->
+                        <svg class="methodology-svg" viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg">
+
+                            <!-- Connecting lines -->
+                            <g fill="none" stroke="#B0ADA6" stroke-width="0.75" opacity="0.7">
+                                <line x1="240" y1="210" x2="220" y2="68"/>
+                                <line x1="240" y1="210" x2="390" y2="145"/>
+                                <line x1="240" y1="210" x2="88" y2="208"/>
+                                <line x1="240" y1="210" x2="130" y2="338"/>
+                                <line x1="240" y1="210" x2="360" y2="338"/>
+                            </g>
+
+                            <!-- Blob 1: Plans excessively — top, sage green -->
+                            <path d="M 220,30 C 260,28 300,44 298,66 C 296,88 260,108 218,107 C 176,106 140,90 143,67 C 146,44 180,32 220,30 Z" fill="rgba(120,170,100,0.15)" stroke="rgba(100,150,80,0.4)" stroke-width="1.2"/>
+                            <text text-anchor="middle" font-family="'Inter',sans-serif" font-size="11" fill="#3A3735">
+                                <tspan x="220" y="62">Plans</tspan>
+                                <tspan x="220" dy="15">excessively</tspan>
+                            </text>
+
+                            <!-- Blob 2: Presents options — upper right, dusty blue -->
+                            <path d="M 390,111 C 428,109 465,124 463,144 C 461,164 428,181 388,180 C 348,179 316,163 319,144 C 322,125 352,113 390,111 Z" fill="rgba(110,150,190,0.15)" stroke="rgba(90,130,175,0.4)" stroke-width="1.2"/>
+                            <text text-anchor="middle" font-family="'Inter',sans-serif" font-size="11" fill="#3A3735">
+                                <tspan x="390" y="139">Presents</tspan>
+                                <tspan x="390" dy="15">options</tspan>
+                            </text>
+
+                            <!-- Blob 3: Builds detailed repeatable processes — left, teal -->
+                            <path d="M 88,150 C 128,146 165,162 164,185 C 163,208 158,262 92,266 C 26,270 8,240 12,212 C 16,184 48,154 88,150 Z" fill="rgba(100,165,135,0.15)" stroke="rgba(80,145,115,0.4)" stroke-width="1.2"/>
+                            <text text-anchor="middle" font-family="'Inter',sans-serif" font-size="10" fill="#3A3735">
+                                <tspan x="88" y="198">Builds detailed</tspan>
+                                <tspan x="88" dy="14">repeatable</tspan>
+                                <tspan x="88" dy="14">processes</tspan>
+                            </text>
+
+                            <!-- Blob 4: Begins deep thorough research — bottom left, salmon -->
+                            <path d="M 130,300 C 170,298 208,314 206,336 C 204,358 172,378 128,377 C 84,376 52,358 55,337 C 58,316 90,302 130,300 Z" fill="rgba(195,120,100,0.15)" stroke="rgba(175,100,80,0.4)" stroke-width="1.2"/>
+                            <text text-anchor="middle" font-family="'Inter',sans-serif" font-size="10" fill="#3A3735">
+                                <tspan x="130" y="330">Begins deep,</tspan>
+                                <tspan x="130" dy="14">thorough research</tspan>
+                            </text>
+
+                            <!-- Blob 5: Never makes assumptions — bottom right, lavender -->
+                            <path d="M 360,283 C 414,279 464,300 462,334 C 460,368 414,395 358,394 C 302,393 256,370 259,336 C 262,302 306,287 360,283 Z" fill="rgba(175,120,165,0.15)" stroke="rgba(155,100,145,0.4)" stroke-width="1.2"/>
+                            <text text-anchor="middle" font-family="'Inter',sans-serif" font-size="10" fill="#3A3735">
+                                <tspan x="360" y="318">Never makes</tspan>
+                                <tspan x="360" dy="13">assumptions.</tspan>
+                                <tspan x="360" dy="13">Always explains</tspan>
+                                <tspan x="360" dy="13">recommendations.</tspan>
+                            </text>
+
+                            <!-- Stick figure — center -->
+                            <g stroke="#2D2B28" stroke-width="1.5" fill="none" stroke-linecap="round">
+                                <circle cx="240" cy="178" r="13" fill="none"/>
+                                <line x1="240" y1="191" x2="240" y2="228"/>
+                                <line x1="218" y1="212" x2="262" y2="208"/>
+                                <line x1="240" y1="228" x2="224" y2="254"/>
+                                <line x1="240" y1="228" x2="256" y2="254"/>
+                            </g>
+                            <text x="256" y="200" font-family="'Inter',sans-serif" font-size="11" font-weight="500" fill="#2D2B28" letter-spacing="0.08em">prznt</text>
+
+                        </svg>
+
+                        <!-- Handwritten layer: Assad's Notability export -->
+                        <img
+                            class="illustration-handwriting"
+                            src="assets/methodology.png"
+                            alt="Present methodology"
+                            onerror="this.style.display='none'"
+                        >
+
+                        <span class="illustration-date">Updated Feb 24</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel 3: Contact -->
+        <div class="panel">
+            <div class="contact-layout a5">
+                <div class="contact-photo">
+                    <img src="assets/Go For It.jpg" alt="">
+                </div>
+                <div class="contact-wrap">
+                    <p class="contact-head">Reach out.</p>
+                    <a class="contact-email" id="contact-link" href="#">—</a>
+                    <p class="contact-close">One month. Your workflow learned.<br>Your AI built.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Arrows -->
+    <button class="arrow arrow-prev hidden" id="arrow-prev" aria-label="Previous panel">←</button>
+    <button class="arrow arrow-next" id="arrow-next" aria-label="Next panel">→</button>
+
+    <!-- Dot navigation -->
+    <nav class="dots" id="dots" aria-label="Panel navigation">
+        <button class="dot active" data-index="0" aria-label="Panel 1"></button>
+        <button class="dot" data-index="1" aria-label="Panel 2"></button>
+        <button class="dot" data-index="2" aria-label="Panel 3"></button>
+    </nav>
+
+    <script>
+        // Email obfuscation
+        (function() {
+            var u = "assad";
+            var d = "assad.one";
+            var el = document.getElementById("contact-link");
+            el.textContent = u + "@" + d;
+            el.href = "mai" + "lto:" + u + "@" + d;
+        })();
+
+        // Navigation
+        var slider     = document.getElementById("slider");
+        var dotEls     = document.querySelectorAll(".dot");
+        var arrowPrev  = document.getElementById("arrow-prev");
+        var arrowNext  = document.getElementById("arrow-next");
+        var current    = 0;
+        var panelCount = 3;
+
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        function panelSize() {
+            return isMobile() ? window.innerHeight : window.innerWidth;
+        }
+
+        function goTo(index) {
+            if (index < 0 || index >= panelCount) return;
+            current = index;
+            var offset = index * panelSize();
+            if (isMobile()) {
+                slider.scrollTo({ top: offset, behavior: "smooth" });
+            } else {
+                slider.scrollTo({ left: offset, behavior: "smooth" });
+            }
+            updateDots();
+        }
+
+        function updateDots() {
+            dotEls.forEach(function(dot, i) {
+                dot.classList.toggle("active", i === current);
+            });
+            arrowPrev.classList.toggle("hidden", current === 0);
+            arrowNext.classList.toggle("hidden", current === panelCount - 1);
+        }
+
+        // Arrow click
+        arrowPrev.addEventListener("click", function() { goTo(current - 1); });
+        arrowNext.addEventListener("click", function() { goTo(current + 1); });
+
+        // Dot click
+        dotEls.forEach(function(dot) {
+            dot.addEventListener("click", function() {
+                goTo(parseInt(dot.dataset.index, 10));
+            });
+        });
+
+        // Keyboard
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "ArrowRight" || e.key === "ArrowDown")  goTo(current + 1);
+            if (e.key === "ArrowLeft"  || e.key === "ArrowUp")    goTo(current - 1);
+        });
+
+        // Sync dots on scroll
+        slider.addEventListener("scroll", function() {
+            var pos  = isMobile() ? slider.scrollTop  : slider.scrollLeft;
+            var size = panelSize();
+            var idx  = Math.round(pos / size);
+            if (idx !== current && idx >= 0 && idx < panelCount) {
+                current = idx;
+                updateDots();
+            }
+        }, { passive: true });
+
+        // Touch swipe (desktop fallback)
+        var tx = 0, ty = 0;
+        slider.addEventListener("touchstart", function(e) {
+            tx = e.touches[0].clientX;
+            ty = e.touches[0].clientY;
+        }, { passive: true });
+
+        slider.addEventListener("touchend", function(e) {
+            var dx = e.changedTouches[0].clientX - tx;
+            var dy = e.changedTouches[0].clientY - ty;
+            if (!isMobile() && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+                if (dx < 0) goTo(current + 1);
+                else        goTo(current - 1);
+            }
+        }, { passive: true });
+    </script>
+
+</body>
+</html>
