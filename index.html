@@ -337,9 +337,10 @@
             }
 
             .panel {
-                flex: 0 0 100vh;
+                flex: 0 0 auto;
+                min-height: 100vh;
+                height: auto;
                 width: 100vw;
-                height: 100vh;
                 padding: 0 32px;
             }
 
@@ -369,11 +370,29 @@
             .contact-head  { font-size: 40px; }
             .contact-email { font-size: 20px; }
 
-            .contact-photo { display: none; }
-            .contact-layout { display: block; }
+            .contact-layout { display: block; padding-bottom: 48px; }
+
+            .contact-photo {
+                width: 100%;
+                flex: none;
+                height: 420px;
+                margin-bottom: 8px;
+            }
 
             .arrow { display: none; }
-            .process-diagram { display: none; }
+
+            .process-layout {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 32px;
+                padding-bottom: 48px;
+            }
+
+            .process-diagram {
+                width: 100%;
+                max-width: 400px;
+            }
+
             .process-layout .process { max-width: 100%; }
 
             .dots { bottom: 24px; }

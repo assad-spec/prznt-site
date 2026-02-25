@@ -4,3 +4,5 @@ CLAUDE.md
 *.pdf
 *.png
 !assets/*.png
+.DS_Store
+.claude/
