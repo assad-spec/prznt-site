@@ -372,17 +372,42 @@
             .process-label { font-size: 18px; }
             .process-desc  { font-size: 18px; }
 
-            .contact-head  { font-size: 40px; }
-            .contact-email { font-size: 20px; }
-
-            .contact-layout { display: block; padding-bottom: 48px; }
+            /* Contact — mobile */
+            .contact-layout {
+                flex-direction: column;
+                gap: 28px;
+                padding-bottom: 40px;
+                padding-top: 80px;
+            }
 
             .contact-photo {
                 width: 100%;
                 flex: none;
-                height: 420px;
-                margin-bottom: 8px;
+                height: auto;
+                overflow: visible;
             }
+
+            .contact-photo img {
+                position: static;
+                inset: unset;
+                width: 100%;
+                height: auto;
+                object-fit: unset;
+                object-position: unset;
+                -webkit-mask-image:
+                    linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%),
+                    linear-gradient(to right,  transparent 0%, black 5%, black 95%, transparent 100%);
+                -webkit-mask-composite: destination-in;
+                mask-image:
+                    linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%),
+                    linear-gradient(to right,  transparent 0%, black 5%, black 95%, transparent 100%);
+                mask-composite: intersect;
+            }
+
+            .contact-wrap  { gap: 20px; }
+            .contact-head  { font-size: 40px; }
+            .contact-email { font-size: 19px; }
+            .contact-close { font-size: 13px; }
 
             .arrow { display: none; }
 
@@ -403,6 +428,23 @@
             .dots { bottom: 24px; }
 
             .a1, .a2, .a3, .a4, .a5 { opacity: 1; animation: none; }
+
+            /* Fix Panel 2: undo desktop full-height layout, push content up */
+            #panel2 {
+                align-items: flex-start;
+                padding-right: 32px;
+                padding-top: 80px;
+            }
+
+            #panel2 .process-layout { height: auto; }
+
+            #panel2 .process {
+                width: 100%;
+                max-width: 100%;
+                padding-right: 0;
+            }
+
+            /* (Contact mobile styles consolidated above) */
 
             #panel2 .process-diagram {
                 display: none;
