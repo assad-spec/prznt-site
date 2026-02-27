@@ -396,6 +396,81 @@
             .process-layout .process { max-width: 100%; }
 
             .dots { bottom: 24px; }
+
+            #panel2 .process-diagram {
+                width: 100%;
+                max-width: 100%;
+                height: 360px;
+            }
+
+            #panel2 .illustration-wrap {
+                position: relative;
+                inset: unset;
+                max-width: none;
+                aspect-ratio: unset;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        /* ── Panel 2 full-bleed 3D ─────────── */
+        #panel2 {
+            padding-right: 0;
+            align-items: stretch;
+        }
+
+        #panel2 .process-layout {
+            height: 100vh;
+            align-items: stretch;
+            gap: 0;
+        }
+
+        #panel2 .process {
+            flex: 0 0 auto;
+            width: 440px;
+            max-width: 440px;
+            padding-right: 56px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #panel2 .process-diagram {
+            flex: 1;
+            min-width: 0;
+            height: 100vh;
+            position: relative;
+        }
+
+        #panel2 .illustration-wrap {
+            position: absolute;
+            inset: 0;
+            max-width: none;
+            aspect-ratio: unset;
+            width: 100%;
+            height: 100%;
+        }
+
+        #panel2 .illustration-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Left-edge dissolve into page background */
+        #panel2 .process-diagram::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: linear-gradient(
+                to right,
+                rgba(250,249,246,1) 0%,
+                rgba(250,249,246,0.55) 7%,
+                transparent 22%
+            );
         }
     </style>
 </head>
@@ -413,7 +488,7 @@
         </div>
 
         <!-- Panel 2: Process -->
-        <div class="panel">
+        <div class="panel" id="panel2">
             <div class="process-layout">
                 <div class="process a3">
                     <div class="process-row">
@@ -432,6 +507,16 @@
                 </div>
 
                 <div class="process-diagram a4">
+                    <div class="illustration-wrap">
+                        <iframe src="thought-tree-b.html" title="Thought Tree"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REMOVED SVG (kept below for reference, never rendered) -->
+        <template>
+                    <div class="process-diagram a4--disabled">
                     <div class="illustration-wrap">
                         <!-- Digital base -->
                         <svg class="methodology-svg" viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg">
@@ -506,8 +591,7 @@
                         <span class="illustration-date">Updated Feb 24</span>
                     </div>
                 </div>
-            </div>
-        </div>
+        </template>
 
         <!-- Panel 3: Contact -->
         <div class="panel">
@@ -516,7 +600,7 @@
                     <img src="assets/Go For It.jpg" alt="">
                 </div>
                 <div class="contact-wrap">
-                    <p class="contact-head">Reach out.</p>
+                    <p class="contact-head">When building with AI becomes the priority.</p>
                     <a class="contact-email" id="contact-link" href="#">—</a>
                     <p class="contact-close">One month. Your workflow learned.<br>Your AI built.</p>
                 </div>
@@ -551,7 +635,7 @@
         var dotEls     = document.querySelectorAll(".dot");
         var arrowPrev  = document.getElementById("arrow-prev");
         var arrowNext  = document.getElementById("arrow-next");
-        var current    = 0;
+        var current    = 1;
         var panelCount = 3;
 
         function isMobile() {
@@ -581,6 +665,14 @@
             arrowPrev.classList.toggle("hidden", current === 0);
             arrowNext.classList.toggle("hidden", current === panelCount - 1);
         }
+
+        // Start on Panel 2 — instant, no animation
+        (function() {
+            var offset = 1 * panelSize();
+            if (isMobile()) { slider.scrollTop  = offset; }
+            else             { slider.scrollLeft = offset; }
+            updateDots();
+        })();
 
         // Arrow click
         arrowPrev.addEventListener("click", function() { goTo(current - 1); });
