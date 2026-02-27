@@ -482,7 +482,7 @@
         <div class="panel">
             <div class="wordmark a1">Prznt</div>
             <div>
-                <h1 class="hero-headline a2">Prznt learns how you work and builds custom AI for you.</h1>
+                <h1 class="hero-headline a2">Building custom AI with you.</h1>
                 <p class="hero-sub a2">One month. Start to Finish. For CEOs only.</p>
             </div>
         </div>
@@ -635,7 +635,7 @@
         var dotEls     = document.querySelectorAll(".dot");
         var arrowPrev  = document.getElementById("arrow-prev");
         var arrowNext  = document.getElementById("arrow-next");
-        var current    = 1;
+        var current    = 0;
         var panelCount = 3;
 
         function isMobile() {
@@ -665,14 +665,6 @@
             arrowPrev.classList.toggle("hidden", current === 0);
             arrowNext.classList.toggle("hidden", current === panelCount - 1);
         }
-
-        // Start on Panel 2 — instant, no animation
-        (function() {
-            var offset = 1 * panelSize();
-            if (isMobile()) { slider.scrollTop  = offset; }
-            else             { slider.scrollLeft = offset; }
-            updateDots();
-        })();
 
         // Arrow click
         arrowPrev.addEventListener("click", function() { goTo(current - 1); });
