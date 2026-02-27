@@ -461,64 +461,66 @@
 
         }
 
-        /* ── Panel 2 full-bleed 3D ─────────── */
-        #panel2 {
-            padding-right: 0;
-            align-items: stretch;
-        }
+        /* ── Panel 2 full-bleed 3D (desktop only) ─────────── */
+        @media (min-width: 769px) {
+            #panel2 {
+                padding-right: 0;
+                align-items: stretch;
+            }
 
-        #panel2 .process-layout {
-            height: 100vh;
-            align-items: stretch;
-            gap: 0;
-        }
+            #panel2 .process-layout {
+                height: 100vh;
+                align-items: stretch;
+                gap: 0;
+            }
 
-        #panel2 .process {
-            flex: 0 0 auto;
-            width: 440px;
-            max-width: 440px;
-            padding-right: 56px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+            #panel2 .process {
+                flex: 0 0 auto;
+                width: 440px;
+                max-width: 440px;
+                padding-right: 56px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
 
-        #panel2 .process-diagram {
-            flex: 1;
-            min-width: 0;
-            height: 100vh;
-            position: relative;
-        }
+            #panel2 .process-diagram {
+                flex: 1;
+                min-width: 0;
+                height: 100vh;
+                position: relative;
+            }
 
-        #panel2 .illustration-wrap {
-            position: absolute;
-            inset: 0;
-            max-width: none;
-            aspect-ratio: unset;
-            width: 100%;
-            height: 100%;
-        }
+            #panel2 .illustration-wrap {
+                position: absolute;
+                inset: 0;
+                max-width: none;
+                aspect-ratio: unset;
+                width: 100%;
+                height: 100%;
+            }
 
-        #panel2 .illustration-wrap iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
+            #panel2 .illustration-wrap iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+                display: block;
+            }
 
-        /* Left-edge dissolve into page background */
-        #panel2 .process-diagram::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            background: linear-gradient(
-                to right,
-                rgba(250,249,246,1) 0%,
-                rgba(250,249,246,0.55) 7%,
-                transparent 22%
-            );
+            /* Left-edge dissolve into page background */
+            #panel2 .process-diagram::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                z-index: 1;
+                background: linear-gradient(
+                    to right,
+                    rgba(250,249,246,1) 0%,
+                    rgba(250,249,246,0.55) 7%,
+                    transparent 22%
+                );
+            }
         }
     </style>
 </head>
