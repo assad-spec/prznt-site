@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thought Tree</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%;
+            background: #FAF9F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+        svg { width: 100%; height: 100%; pointer-events: none; }
+
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to   { transform: translateY(-8px); }
+        }
+        @keyframes linepulse {
+            from { opacity: 0.32; }
+            to   { opacity: 0.14; }
+        }
+
+        .fa { animation: float var(--dur, 4s) ease-in-out var(--dl, 0s) infinite alternate; }
+        .la { animation: linepulse 6s ease-in-out var(--dl, 0s) infinite alternate; }
+    </style>
+</head>
+<body>
+    <svg viewBox="0 0 860 580" xmlns="http://www.w3.org/2000/svg"
+         font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+
+        <defs>
+            <filter id="s" x="-15%" y="-25%" width="130%" height="150%">
+                <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#2D2B28" flood-opacity="0.09"/>
+            </filter>
+        </defs>
+
+        <!-- Connection lines -->
+        <path class="la" style="--dl:0s"    d="M 430,275 Q 270,175 145,90"  fill="none" stroke="#d4764a" stroke-width="1.5"/>
+        <path class="la" style="--dl:0.8s"  d="M 430,275 Q 560,178 664,85"  fill="none" stroke="#4a7fd4" stroke-width="1.5"/>
+        <path class="la" style="--dl:1.4s"  d="M 430,275 Q 248,268 122,265" fill="none" stroke="#3d9e82" stroke-width="1.5"/>
+        <path class="la" style="--dl:0.3s"  d="M 430,275 Q 618,265 757,260" fill="none" stroke="#9a5ec8" stroke-width="1.5"/>
+        <path class="la" style="--dl:1.1s"  d="M 430,275 Q 276,358 156,450" fill="none" stroke="#5dad6a" stroke-width="1.5"/>
+        <path class="la" style="--dl:0.6s"  d="M 430,275 Q 430,380 430,490" fill="none" stroke="#c4963a" stroke-width="1.5"/>
+        <path class="la" style="--dl:1.7s"  d="M 430,275 Q 558,358 668,445" fill="none" stroke="#c44b84" stroke-width="1.5"/>
+
+        <!-- Center: YOU — anchored, no float -->
+        <g transform="translate(365,248)" filter="url(#s)">
+            <rect width="130" height="54" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+            <rect width="12" height="54" rx="8" fill="#A89B7A"/>
+            <rect x="6" width="6" height="54" fill="#A89B7A"/>
+            <text x="25" y="35" font-size="21" font-weight="300" fill="#2D2B28" letter-spacing="4">YOU</text>
+        </g>
+
+        <!-- My Voice -->
+        <g transform="translate(65,65)">
+            <g class="fa" style="--dur:4.2s;--dl:0s" filter="url(#s)">
+                <rect width="160" height="50" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+                <rect width="12" height="50" rx="8" fill="#d4764a"/>
+                <rect x="6" width="6" height="50" fill="#d4764a"/>
+                <text x="25" y="30" font-size="13" font-weight="600" fill="#2D2B28">My Voice</text>
+            </g>
+        </g>
+
+        <!-- Know my mission -->
+        <g transform="translate(572,51)">
+            <g class="fa" style="--dur:4.8s;--dl:0.7s" filter="url(#s)">
+                <rect width="185" height="68" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+                <rect width="12" height="68" rx="8" fill="#4a7fd4"/>
+                <rect x="6" width="6" height="68" fill="#4a7fd4"/>
+                <text x="25" y="27" font-size="13" font-weight="600" fill="#2D2B28">Know my</text>
+                <text x="25" y="48" font-size="12" font-weight="400" fill="#6B655D">mission</text>
+            </g>
+        </g>
+
+        <!-- Deep research -->
+        <g transform="translate(15,231)">
+            <g class="fa" style="--dur:3.9s;--dl:1.4s" filter="url(#s)">
+                <rect width="215" height="68" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+                <rect width="12" height="68" rx="8" fill="#3d9e82"/>
+                <rect x="6" width="6" height="68" fill="#3d9e82"/>
+                <text x="25" y="27" font-size="13" font-weight="600" fill="#2D2B28">Deep research</text>
+                <text x="25" y="48" font-size="12" font-weight="400" fill="#6B655D">for specialized tasks</text>
+            </g>
+        </g>
+
+        <!-- Be uniquely creative -->
+        <g transform="translate(665,226)">
+            <g class="fa" style="--dur:4.5s;--dl:0.3s" filter="url(#s)">
+                <rect width="185" height="68" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+                <rect width="12" height="68" rx="8" fill="#9a5ec8"/>
+                <rect x="6" width="6" height="68" fill="#9a5ec8"/>
+                <text x="25" y="27" font-size="13" font-weight="600" fill="#2D2B28">Be uniquely</text>
+                <text x="25" y="48" font-size="12" font-weight="400" fill="#6B655D">creative</text>
+            </g>
+        </g>
+
+        <!-- Works while I think -->
+        <g transform="translate(63,416)">
+            <g class="fa" style="--dur:4.0s;--dl:1.1s" filter="url(#s)">
+                <rect width="185" height="68" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+                <rect width="12" height="68" rx="8" fill="#5dad6a"/>
+                <rect x="6" width="6" height="68" fill="#5dad6a"/>
+                <text x="25" y="27" font-size="13" font-weight="600" fill="#2D2B28">Works while</text>
+                <text x="25" y="48" font-size="12" font-weight="400" fill="#6B655D">I think</text>
+            </g>
+        </g>
+
+        <!-- Meaningfully improve productivity -->
+        <g transform="translate(323,456)">
+            <g class="fa" style="--dur:4.7s;--dl:0.8s" filter="url(#s)">
+                <rect width="215" height="68" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+                <rect width="12" height="68" rx="8" fill="#c4963a"/>
+                <rect x="6" width="6" height="68" fill="#c4963a"/>
+                <text x="25" y="27" font-size="13" font-weight="600" fill="#2D2B28">Meaningfully improve</text>
+                <text x="25" y="48" font-size="12" font-weight="400" fill="#6B655D">productivity</text>
+            </g>
+        </g>
+
+        <!-- Teach me so I can do it alone -->
+        <g transform="translate(575,411)">
+            <g class="fa" style="--dur:4.3s;--dl:1.7s" filter="url(#s)">
+                <rect width="185" height="68" rx="8" fill="#FAF9F6" stroke="#E8E6E1" stroke-width="1.2"/>
+                <rect width="12" height="68" rx="8" fill="#c44b84"/>
+                <rect x="6" width="6" height="68" fill="#c44b84"/>
+                <text x="25" y="27" font-size="13" font-weight="600" fill="#2D2B28">Teach me so I</text>
+                <text x="25" y="48" font-size="12" font-weight="400" fill="#6B655D">can do it alone</text>
+            </g>
+        </g>
+
+    </svg>
+</body>
+</html>
