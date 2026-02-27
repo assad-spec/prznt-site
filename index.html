@@ -327,6 +327,10 @@
             opacity: 0.6;
         }
 
+        /* ── Panel 2b + 4th dot — hidden on desktop, shown on mobile ── */
+        #panel2b          { display: none; }
+        .dot[data-index="3"] { display: none; }
+
         /* ── Mobile ───────────────────────── */
         @media (max-width: 768px) {
             .slider {
@@ -410,6 +414,32 @@
                 aspect-ratio: unset;
                 width: 100%;
                 height: 100%;
+            }
+
+            /* Panel 2b: full-screen 3D animation */
+            #panel2b {
+                display: flex;
+                padding: 0;
+                position: relative;
+                overflow: hidden;
+            }
+            #panel2b iframe {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+                display: block;
+            }
+
+            /* Hide diagram from Panel 2 on mobile — it lives in Panel 2b */
+            #panel2 .process-diagram {
+                display: none;
+            }
+
+            /* Show 4th dot */
+            .dot[data-index="3"] {
+                display: inline-block;
             }
         }
 
@@ -512,6 +542,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Panel 2b: 3D Animation — mobile only -->
+        <div class="panel" id="panel2b">
+            <iframe src="thought-tree-b.html" title="Thought Tree"></iframe>
         </div>
 
         <!-- REMOVED SVG (kept below for reference, never rendered) -->
@@ -618,6 +653,7 @@
         <button class="dot active" data-index="0" aria-label="Panel 1"></button>
         <button class="dot" data-index="1" aria-label="Panel 2"></button>
         <button class="dot" data-index="2" aria-label="Panel 3"></button>
+        <button class="dot" data-index="3" aria-label="Panel 4"></button>
     </nav>
 
     <script>
@@ -636,7 +672,7 @@
         var arrowPrev  = document.getElementById("arrow-prev");
         var arrowNext  = document.getElementById("arrow-next");
         var current    = 0;
-        var panelCount = 3;
+        function getPanelCount() { return isMobile() ? 4 : 3; }
 
         function isMobile() {
             return window.innerWidth <= 768;
@@ -647,7 +683,7 @@
         }
 
         function goTo(index) {
-            if (index < 0 || index >= panelCount) return;
+            if (index < 0 || index >= getPanelCount()) return;
             current = index;
             var offset = index * panelSize();
             if (isMobile()) {
@@ -663,7 +699,7 @@
                 dot.classList.toggle("active", i === current);
             });
             arrowPrev.classList.toggle("hidden", current === 0);
-            arrowNext.classList.toggle("hidden", current === panelCount - 1);
+            arrowNext.classList.toggle("hidden", current === getPanelCount() - 1);
         }
 
         // Arrow click
@@ -688,7 +724,7 @@
             var pos  = isMobile() ? slider.scrollTop  : slider.scrollLeft;
             var size = panelSize();
             var idx  = Math.round(pos / size);
-            if (idx !== current && idx >= 0 && idx < panelCount) {
+            if (idx !== current && idx >= 0 && idx < getPanelCount()) {
                 current = idx;
                 updateDots();
             }
