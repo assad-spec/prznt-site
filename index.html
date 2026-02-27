@@ -349,6 +349,11 @@
                 padding: 0 32px;
             }
 
+            #panel3 {
+                height: 100vh;
+                height: 100svh;
+            }
+
             .wordmark {
                 left: 32px;
                 top: 32px;
@@ -375,25 +380,25 @@
             /* Contact — mobile */
             .contact-layout {
                 flex-direction: column;
-                gap: 28px;
-                padding-bottom: 40px;
-                padding-top: 80px;
+                gap: 16px;
+                padding-top: 40px;
+                padding-bottom: 24px;
             }
 
             .contact-photo {
                 width: 100%;
                 flex: none;
-                height: auto;
-                overflow: visible;
+                height: 300px;
+                overflow: hidden;
             }
 
             .contact-photo img {
                 position: static;
                 inset: unset;
                 width: 100%;
-                height: auto;
-                object-fit: unset;
-                object-position: unset;
+                height: 100%;
+                object-fit: cover;
+                object-position: center 60%;
                 -webkit-mask-image:
                     linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%),
                     linear-gradient(to right,  transparent 0%, black 5%, black 95%, transparent 100%);
@@ -652,10 +657,10 @@
         <div class="panel" id="panel3">
             <div class="contact-layout a5">
                 <div class="contact-photo">
-                    <img src="assets/Go For It.jpg" alt="">
+                    <img src="assets/Go For It.jpg?v=2" alt="">
                 </div>
                 <div class="contact-wrap">
-                    <p class="contact-head">When building with AI becomes the priority.</p>
+                    <p class="contact-head">When AI becomes your priority.</p>
                     <a class="contact-email" id="contact-link" href="#">—</a>
                     <p class="contact-close">One month. Your workflow learned.<br>Your AI built.</p>
                 </div>
