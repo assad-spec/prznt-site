@@ -180,14 +180,15 @@
 
         // ── Node definitions ──────────────────────────────────────
         const NODE_DATA = [
-            { id: 'center',   lines: ['YOU'],                                   color: SLATE,    pos: [0, 0, 0],          type: 'sphere', rx: 1.12, ry: 0.75, rz: 1.12, isCenter: true },
-            { id: 'voice',    lines: ['My Voice'],                              color: 0xd4764a, pos: [-2.2, 2.6, 0.7],   type: 'sphere', rx: 0.88, ry: 0.52, rz: 0.88 },
-            { id: 'mission',  lines: ['Know my', 'mission'],                    color: 0x4a7fd4, pos: [2.6, 2.5, -0.7],   type: 'sphere', rx: 1.05, ry: 0.52, rz: 1.05 },
-            { id: 'research', lines: ['Deep research', 'for specialized tasks'],color: 0x3d9e82, pos: [-3.2, 0.1, 1.1],   type: 'sphere', rx: 0.94, ry: 0.94, rz: 0.94 },
-            { id: 'creative', lines: ['Be uniquely', 'creative'],               color: 0x9a5ec8, pos: [3.2, 0.2, -1.0],   type: 'sphere', rx: 0.90, ry: 0.55, rz: 0.90 },
-            { id: 'works',    lines: ['Works while', 'I think'],                color: 0x5dad6a, pos: [-2.4, -2.6, 0.6],  type: 'sphere', rx: 1.0,  ry: 0.58, rz: 1.0  },
-            { id: 'improve',  lines: ['Meaningfully improve', 'productivity'],  color: 0xc4963a, pos: [0.1, -3.0, -0.6],  type: 'hex',    rx: 1.1,  ry: 0.42, rz: 0.7  },
-            { id: 'teach',    lines: ['Teach me so I', 'can do it alone'],      color: 0xc44b84, pos: [2.8, -2.4, 0.9],   type: 'box',    rx: 1.5,  ry: 0.55, rz: 0.5  },
+            { id: 'center',   lines: ['YOU'],                                   color: SLATE,    pos: [0, 0, 0],           type: 'sphere', rx: 1.12, ry: 0.75, rz: 1.12, isCenter: true },
+            { id: 'voice',    lines: ['I know the', 'tools I want'],            color: 0xd4764a, pos: [-2.2, 2.6, 0.7],   type: 'sphere', rx: 0.88, ry: 0.52, rz: 0.88 },
+            { id: 'mission',  lines: ["I don't want to", 'waste money'],        color: 0x4a7fd4, pos: [2.6, 2.5, -0.7],   type: 'sphere', rx: 1.05, ry: 0.52, rz: 1.05 },
+            { id: 'research', lines: ['I need to', 'use more'],                 color: 0x3d9e82, pos: [-3.2, 0.1, 1.1],   type: 'sphere', rx: 0.94, ry: 0.94, rz: 0.94 },
+            { id: 'creative', lines: ["I've asked my team", 'to use AI'],       color: 0x9a5ec8, pos: [3.2, 0.2, -1.0],   type: 'sphere', rx: 0.90, ry: 0.55, rz: 0.90 },
+            { id: 'works',    lines: ['On paper.', 'In my head.'],              color: 0x5dad6a, pos: [-2.4, -2.6, 0.6],  type: 'sphere', rx: 1.0,  ry: 0.58, rz: 1.0  },
+            { id: 'improve',  lines: ["I don't", 'have time'],                  color: 0xc4963a, pos: [0.1, -3.0, -0.6],  type: 'hex',    rx: 1.1,  ry: 0.42, rz: 0.7  },
+            { id: 'teach',    lines: ['I can', 'learn this'],                   color: 0xc44b84, pos: [2.8, -2.4, 0.9],   type: 'box',    rx: 1.5,  ry: 0.55, rz: 0.5  },
+            { id: 'think',    lines: ['I think about', 'AI a lot'],             color: 0x7a8fa0, pos: [-0.8, 3.1, -1.8],  type: 'sphere', rx: 0.92, ry: 0.52, rz: 0.92 },
         ];
 
         // ── Build nodes + card panels ─────────────────────────────
@@ -273,6 +274,7 @@
                 [-0.3, -0.4,  0.2],
                 [ 0.0, -0.5, -0.2],
                 [ 0.4, -0.3,  0.3],
+                [-0.3,  0.4, -0.4],
             ];
 
             NODE_DATA.forEach((data, i) => {
