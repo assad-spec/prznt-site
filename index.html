@@ -79,6 +79,7 @@
             font-weight: 500;
             letter-spacing: 0.20em;
             color: var(--ink);
+            z-index: 2;
         }
 
         /* ── Hero ─────────────────────────── */
@@ -328,9 +329,88 @@
         }
 
 
+        /* ── Work Cards ────────────────────── */
+        .work-cards {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            height: 60vh;
+            align-items: stretch;
+        }
+
+        .work-card {
+            flex: 0 0 72px;
+            border: 1px solid var(--rule);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            position: relative;
+        }
+
+        .work-card.active {
+            flex: 1;
+            cursor: default;
+        }
+
+        .work-card-bar {
+            width: 8px;
+            flex-shrink: 0;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .work-card-label {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-90deg);
+            transform-origin: center center;
+            white-space: nowrap;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            transition: opacity 0.2s ease;
+        }
+
+        .work-card.active .work-card-label {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .work-card-content {
+            padding: 36px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            flex: 1;
+            min-width: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.25s;
+        }
+
+        .work-card.active .work-card-content {
+            opacity: 1;
+        }
+
+        .work-card-title {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 12px;
+            white-space: nowrap;
+        }
+
+        .work-card-body {
+            font-size: 17px;
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
         /* ── Panel: Thought Tree (mobile only) ── */
         #panel-tree { display: none; }
-        .dot[data-index="3"] { display: none; }
 
         /* ── Mobile ───────────────────────── */
         @media (max-width: 768px) {
@@ -431,6 +511,33 @@
             .process-layout .process { max-width: 100%; }
 
             .dots { bottom: 24px; }
+
+            .work-cards {
+                flex-direction: column;
+                height: auto;
+                gap: 8px;
+            }
+
+            .work-card {
+                flex: 0 0 52px;
+                border-radius: 10px;
+            }
+
+            .work-card.active {
+                flex: 0 0 auto;
+            }
+
+            .work-card-label {
+                bottom: unset;
+                top: 50%;
+                left: 28px;
+                transform: translateY(-50%);
+            }
+
+            .work-card-content {
+                padding: 24px 24px;
+                justify-content: center;
+            }
 
             .a1, .a2, .a3, .a4, .a5 { opacity: 1; animation: none; }
 
@@ -544,6 +651,7 @@
 
         <!-- Panel 2: Process -->
         <div class="panel" id="panel2">
+            <div class="wordmark">Prznt</div>
             <div class="process-layout">
                 <div class="process a3">
                     <div class="process-row">
@@ -647,13 +755,58 @@
                 </div>
         </template>
 
-        <!-- Panel 3: Thought Tree -->
+        <!-- Panel 3: Work -->
+        <div class="panel" id="panel-work">
+            <div class="wordmark">Prznt</div>
+            <div class="work-cards">
+
+                <div class="work-card active" onclick="activateCard(this)">
+                    <div class="work-card-bar" style="background:#A89B7A"></div>
+                    <span class="work-card-label">Prznt</span>
+                    <div class="work-card-content">
+                        <div class="work-card-title">Prznt</div>
+                        <div class="work-card-body">First engagement. Proof of method.</div>
+                    </div>
+                </div>
+
+                <div class="work-card" onclick="activateCard(this)">
+                    <div class="work-card-bar" style="background:#4a7fd4"></div>
+                    <span class="work-card-label">Problem</span>
+                    <div class="work-card-content">
+                        <div class="work-card-title">Problem</div>
+                        <div class="work-card-body">Design, copy, operations — constant decisions, no process to run any of them.</div>
+                    </div>
+                </div>
+
+                <div class="work-card" onclick="activateCard(this)">
+                    <div class="work-card-bar" style="background:#3d9e82"></div>
+                    <span class="work-card-label">Built</span>
+                    <div class="work-card-content">
+                        <div class="work-card-title">Built</div>
+                        <div class="work-card-body">Three skills: design and code, communications, methodology.</div>
+                    </div>
+                </div>
+
+                <div class="work-card" onclick="activateCard(this)">
+                    <div class="work-card-bar" style="background:#5dad6a"></div>
+                    <span class="work-card-label">Result</span>
+                    <div class="work-card-content">
+                        <div class="work-card-title">Result</div>
+                        <div class="work-card-body">The site, the copy, the firm's operating system. Built using the method.</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Panel 4: Thought Tree (hidden) -->
         <div class="panel" id="panel-tree">
             <iframe src="thought-tree-static.html" title="Thought Tree"></iframe>
         </div>
 
         <!-- Panel 4: Contact -->
         <div class="panel" id="panel3">
+            <div class="wordmark">Prznt</div>
             <div class="contact-layout a5">
                 <div class="contact-photo">
                     <img src="assets/Go For It.jpg?v=2" alt="">
@@ -690,6 +843,14 @@
             el.href = "mai" + "lto:" + u + "@" + d;
         })();
 
+        // Work card accordion
+        function activateCard(el) {
+            document.querySelectorAll('.work-card').forEach(function(c) {
+                c.classList.remove('active');
+            });
+            el.classList.add('active');
+        }
+
         // Navigation
         var slider     = document.getElementById("slider");
         var dotEls     = document.querySelectorAll(".dot");
@@ -698,7 +859,7 @@
         var current    = 0;
 
         function getPanelCount() {
-            return 3;
+            return 4;
         }
 
         function isMobile() {
