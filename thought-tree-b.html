@@ -325,8 +325,10 @@
 
         // ── Animate ───────────────────────────────────────────────
         const clock = new THREE.Clock();
+        let animating = true;
 
         function animate() {
+            if (!animating) return;
             requestAnimationFrame(animate);
             const t = clock.getElapsedTime();
 
@@ -356,6 +358,11 @@
             controls.update();
             renderer.render(scene, camera);
         }
+
+        window.addEventListener('message', (e) => {
+            if (e.data === 'pause') { animating = false; }
+            if (e.data === 'resume' && !animating) { animating = true; animate(); }
+        });
     </script>
 </body>
 </html>

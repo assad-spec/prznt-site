@@ -147,6 +147,7 @@
             align-items: center;
             gap: 80px;
             width: 100%;
+            will-change: transform, opacity;
         }
 
         .contact-photo {
@@ -479,14 +480,8 @@
                 height: 100%;
                 object-fit: cover;
                 object-position: center 60%;
-                -webkit-mask-image:
-                    linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%),
-                    linear-gradient(to right,  transparent 0%, black 5%, black 95%, transparent 100%);
-                -webkit-mask-composite: destination-in;
-                mask-image:
-                    linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%),
-                    linear-gradient(to right,  transparent 0%, black 5%, black 95%, transparent 100%);
-                mask-composite: intersect;
+                -webkit-mask-image: none;
+                mask-image: none;
             }
 
             .contact-wrap  { gap: 20px; }
@@ -645,7 +640,7 @@
             <div class="wordmark a1">Prznt</div>
             <div>
                 <h1 class="hero-headline a2">AI built for you.</h1>
-                <p class="hero-sub a2">For CEOs. Workflow learned. AI built.</p>
+                <p class="hero-sub a2">For decision makers. Workflow learned. Application built.</p>
             </div>
         </div>
 
@@ -809,7 +804,7 @@
             <div class="wordmark">Prznt</div>
             <div class="contact-layout a5">
                 <div class="contact-photo">
-                    <img src="assets/Go For It.jpg?v=2" alt="">
+                    <img src="assets/Go For It.jpg?v=2" alt="" decoding="async">
                 </div>
                 <div class="contact-wrap">
                     <p class="contact-head">When you're ready.</p>
@@ -908,6 +903,7 @@
         });
 
         // Sync dots on scroll
+        var treeIframe = document.querySelector('#panel2 iframe');
         slider.addEventListener("scroll", function() {
             var pos  = isMobile() ? slider.scrollTop  : slider.scrollLeft;
             var size = panelSize();
@@ -915,6 +911,9 @@
             if (idx !== current && idx >= 0 && idx < getPanelCount()) {
                 current = idx;
                 updateDots();
+                if (treeIframe) {
+                    treeIframe.contentWindow.postMessage(idx === 1 ? 'resume' : 'pause', '*');
+                }
             }
         }, { passive: true });
 
