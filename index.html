@@ -338,6 +338,8 @@
             flex-direction: column;
         }
 
+        .pipeline-tabs { display: none; }
+
         .pipeline-cols {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -565,12 +567,42 @@
 
             .dots { bottom: 24px; }
 
-            .pipeline-cols {
-                grid-template-columns: 1fr;
-                gap: 28px;
+            .pipeline-tabs {
+                display: flex;
+                border-bottom: 1px solid var(--rule);
+                margin-bottom: 24px;
             }
 
-            .pipeline-col { padding-right: 0; }
+            .pipeline-tab {
+                flex: 1;
+                background: none;
+                border: none;
+                border-bottom: 2px solid transparent;
+                margin-bottom: -1px;
+                padding: 10px 0;
+                font-family: var(--sans);
+                font-size: 13px;
+                letter-spacing: 0.04em;
+                color: var(--muted);
+                cursor: pointer;
+            }
+
+            .pipeline-tab.active {
+                color: var(--ink);
+                border-bottom-color: var(--ink);
+            }
+
+            .pipeline-cols {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .pipeline-col {
+                display: none;
+                padding-right: 0;
+            }
+
+            .pipeline-col.pipeline-col--active { display: block; }
 
             .project-detail.open {
                 max-height: 600px;
@@ -802,9 +834,15 @@
             <div class="wordmark">Prznt</div>
             <div class="project-dashboard">
 
+                <div class="pipeline-tabs" id="pipeline-tabs">
+                    <button class="pipeline-tab active" onclick="switchPipelineTab('possible')">Possible</button>
+                    <button class="pipeline-tab" onclick="switchPipelineTab('new')">New</button>
+                    <button class="pipeline-tab" onclick="switchPipelineTab('completed')">Completed</button>
+                </div>
+
                 <div class="pipeline-cols">
 
-                    <div class="pipeline-col">
+                    <div class="pipeline-col pipeline-col--active" data-col="possible">
                         <div class="pipeline-label">Possible</div>
                         <button class="project-btn" onclick="toggleProject(this)"
                             data-color="#d4764a"
@@ -850,7 +888,7 @@
                         </button>
                     </div>
 
-                    <div class="pipeline-col">
+                    <div class="pipeline-col" data-col="new">
                         <div class="pipeline-label">New</div>
                         <button class="project-btn" onclick="toggleProject(this)"
                             data-color="#6b7fa3"
@@ -868,7 +906,7 @@
                         </button>
                     </div>
 
-                    <div class="pipeline-col">
+                    <div class="pipeline-col" data-col="completed">
                         <div class="pipeline-label">Completed</div>
                         <button class="project-btn" onclick="toggleProject(this)"
                             data-color="#A89B7A"
@@ -1011,6 +1049,18 @@
             document.getElementById('detail-label-built').textContent  = btn.dataset.labelBuilt  || 'Built';
             document.getElementById('detail-label-result').textContent = btn.dataset.labelResult || 'Result';
             detail.classList.add('open');
+        }
+
+        function switchPipelineTab(name) {
+            var detail = document.getElementById('project-detail');
+            detail.classList.remove('open');
+            if (activeProjectBtn) { activeProjectBtn.classList.remove('active'); activeProjectBtn = null; }
+            document.querySelectorAll('.pipeline-tab').forEach(function(t) {
+                t.classList.toggle('active', t.getAttribute('onclick').indexOf(name) !== -1);
+            });
+            document.querySelectorAll('.pipeline-col').forEach(function(col) {
+                col.classList.toggle('pipeline-col--active', col.dataset.col === name);
+            });
         }
 
         // Navigation
