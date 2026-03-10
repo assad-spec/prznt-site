@@ -330,83 +330,141 @@
         }
 
 
-        /* ── Work Cards ────────────────────── */
-        .work-cards {
-            display: flex;
-            gap: 12px;
+        /* ── Project Dashboard ─────────────── */
+        .project-dashboard {
             width: 100%;
-            height: 60vh;
-            align-items: stretch;
-        }
-
-        .work-card {
-            flex: 0 0 72px;
-            border: 1px solid var(--rule);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            position: relative;
-        }
-
-        .work-card.active {
-            flex: 1;
-            cursor: default;
-        }
-
-        .work-card-bar {
-            width: 8px;
-            flex-shrink: 0;
-            border-radius: 12px 0 0 12px;
-        }
-
-        .work-card-label {
-            position: absolute;
-            bottom: 32px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-90deg);
-            transform-origin: center center;
-            white-space: nowrap;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            color: var(--muted);
-            transition: opacity 0.2s ease;
-        }
-
-        .work-card.active .work-card-label {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .work-card-content {
-            padding: 36px 32px;
+            max-width: 860px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            flex: 1;
-            min-width: 0;
-            opacity: 0;
-            transition: opacity 0.3s ease 0.25s;
         }
 
-        .work-card.active .work-card-content {
-            opacity: 1;
+        .pipeline-cols {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
         }
 
-        .work-card-title {
-            font-size: 22px;
+        .pipeline-col {
+            padding: 28px 48px 32px 0;
+            border-top: 1px solid var(--rule);
+        }
+
+        .pipeline-col:last-child { padding-right: 0; }
+
+        .pipeline-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .pipeline-empty {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--rule);
+        }
+
+        .project-btn {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: none;
+            border: 1px solid var(--rule);
+            border-radius: 10px;
+            padding: 16px 20px;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .project-btn:hover {
+            border-color: var(--slate);
+            background: rgba(168,155,122,0.04);
+        }
+
+        .project-btn.active {
+            border-color: var(--slate);
+            background: rgba(168,155,122,0.07);
+        }
+
+        .project-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+
+        .project-name {
+            font-size: 16px;
             font-weight: 500;
             color: var(--ink);
-            margin-bottom: 12px;
-            white-space: nowrap;
+            margin-bottom: 4px;
         }
 
-        .work-card-body {
-            font-size: 17px;
+        .project-desc {
+            font-size: 14px;
             font-weight: 300;
             color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .project-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s, margin 0.4s;
+        }
+
+        .project-detail.open {
+            max-height: 260px;
+            border-top: 1px solid var(--rule);
+            margin-top: 32px;
+            padding-top: 28px;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .detail-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .detail-title {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .detail-cols {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0 48px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .detail-body {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--ink);
             line-height: 1.55;
         }
 
@@ -507,31 +565,20 @@
 
             .dots { bottom: 24px; }
 
-            .work-cards {
-                flex-direction: column;
-                height: auto;
-                gap: 8px;
+            .pipeline-cols {
+                grid-template-columns: 1fr;
+                gap: 28px;
             }
 
-            .work-card {
-                flex: 0 0 52px;
-                border-radius: 10px;
+            .pipeline-col { padding-right: 0; }
+
+            .project-detail.open {
+                max-height: 600px;
             }
 
-            .work-card.active {
-                flex: 0 0 auto;
-            }
-
-            .work-card-label {
-                bottom: unset;
-                top: 50%;
-                left: 28px;
-                transform: translateY(-50%);
-            }
-
-            .work-card-content {
-                padding: 24px 24px;
-                justify-content: center;
+            .detail-cols {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .a1, .a2, .a3, .a4, .a5 { opacity: 1; animation: none; }
@@ -753,41 +800,146 @@
         <!-- Panel 3: Work -->
         <div class="panel" id="panel-work">
             <div class="wordmark">Prznt</div>
-            <div class="work-cards">
+            <div class="project-dashboard">
 
-                <div class="work-card active" onclick="activateCard(this)">
-                    <div class="work-card-bar" style="background:#A89B7A"></div>
-                    <span class="work-card-label">Prznt</span>
-                    <div class="work-card-content">
-                        <div class="work-card-title">Prznt</div>
-                        <div class="work-card-body">First engagement. Proof of method.</div>
+                <div class="pipeline-cols">
+
+                    <div class="pipeline-col">
+                        <div class="pipeline-label">Possible</div>
+                        <button class="project-btn" onclick="toggleProject(this)"
+                            data-color="#d4764a"
+                            data-name="Finance"
+                            data-label-built="Concept"
+                            data-label-result="Desired Result"
+                            data-problem="The annual budget lives in Excel. The controller owns every row. The process breaks every year."
+                            data-built="An application the controller uses to run the budget — pulling data, running scenarios, producing the document."
+                            data-result="The controller runs a process that works. The budget is done. She is not in Excel.">
+                            <span class="project-dot" style="background:#d4764a"></span>
+                            <div>
+                                <div class="project-name">Finance</div>
+                                <div class="project-desc">Annual budget application.</div>
+                            </div>
+                        </button>
+                        <button class="project-btn" onclick="toggleProject(this)" style="margin-top:8px"
+                            data-color="#4a6fa5"
+                            data-name="Compliance"
+                            data-label-built="Concept"
+                            data-label-result="Desired Result"
+                            data-problem="Advisors create marketing manually. Every piece reviewed for SEC and FINRA compliance. The process is slow and inconsistent."
+                            data-built="An application that generates compliant advisor marketing. Input the details — compliant output comes out."
+                            data-result="Advisors produce compliant marketing without a manual review cycle.">
+                            <span class="project-dot" style="background:#4a6fa5"></span>
+                            <div>
+                                <div class="project-name">Compliance</div>
+                                <div class="project-desc">Global asset manager.</div>
+                            </div>
+                        </button>
+                        <button class="project-btn" onclick="toggleProject(this)" style="margin-top:8px"
+                            data-color="#5e8c6e"
+                            data-name="Engineering"
+                            data-label-built="Concept"
+                            data-label-result="Desired Result"
+                            data-problem="Engineering is outsourced overseas. The team is slow to respond. The project isn't moving."
+                            data-built="An orchestrated agentic engineer that rebuilds the codebase and delivers the finished product."
+                            data-result="The founder has a finished product. No overseas dependency.">
+                            <span class="project-dot" style="background:#5e8c6e"></span>
+                            <div>
+                                <div class="project-name">Engineering</div>
+                                <div class="project-desc">Early-stage startup.</div>
+                            </div>
+                        </button>
                     </div>
+
+                    <div class="pipeline-col">
+                        <div class="pipeline-label">New</div>
+                        <button class="project-btn" onclick="toggleProject(this)"
+                            data-color="#6b7fa3"
+                            data-name="Engineering Capacity"
+                            data-label-built="Concept"
+                            data-label-result="Desired Result"
+                            data-problem="Building orchestrated agentic applications at scale requires dedicated engineering infrastructure."
+                            data-built="Orchestrated agentic engineering environment with experienced partners. 40+ years of combined experience."
+                            data-result="Rapid development at fractional cost.">
+                            <span class="project-dot" style="background:#6b7fa3"></span>
+                            <div>
+                                <div class="project-name">Engineering Capacity</div>
+                                <div class="project-desc">Internal environment.</div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="pipeline-col">
+                        <div class="pipeline-label">Completed</div>
+                        <button class="project-btn" onclick="toggleProject(this)"
+                            data-color="#A89B7A"
+                            data-name="Prznt"
+                            data-problem="Design, copy, operations — constant decisions, no process to run any of them."
+                            data-built="Three orchestrated agents: design and code, communications, methodology."
+                            data-result="The site, the copy, the firm's operating system. Built using the method.">
+                            <span class="project-dot" style="background:#A89B7A"></span>
+                            <div>
+                                <div class="project-name">Prznt</div>
+                                <div class="project-desc">Design, copy, operating system.</div>
+                            </div>
+                        </button>
+                        <button class="project-btn" onclick="toggleProject(this)" style="margin-top:8px"
+                            data-color="#9a5ec8"
+                            data-name="Communications Expert"
+                            data-problem="Writing across channels needed to sound the same. No system for delegating it."
+                            data-built="Two skills: voice and email refinement. Claude writes in Assad's voice from raw thoughts or incoming messages."
+                            data-result="All writing delegated. Consistent voice across every channel.">
+                            <span class="project-dot" style="background:#9a5ec8"></span>
+                            <div>
+                                <div class="project-name">Communications Expert</div>
+                                <div class="project-desc">Personal writing agent.</div>
+                            </div>
+                        </button>
+                        <button class="project-btn" onclick="toggleProject(this)" style="margin-top:8px"
+                            data-color="#3d9e82"
+                            data-name="Job Agent"
+                            data-problem="Evaluating opportunities manually. No repeatable way to score fit or decide what's worth pursuing."
+                            data-built="A web application that scores job fit, runs an interview, and generates a cover letter for strong matches."
+                            data-result="Every opportunity scored. Apply or pass — no guessing.">
+                            <span class="project-dot" style="background:#3d9e82"></span>
+                            <div>
+                                <div class="project-name">Job Agent</div>
+                                <div class="project-desc">Executive job fit tool.</div>
+                            </div>
+                        </button>
+                        <button class="project-btn" onclick="toggleProject(this)" style="margin-top:8px"
+                            data-color="#c4963a"
+                            data-name="Assad.one"
+                            data-problem="No digital presence for the advisory practice. Generic framing didn't fit."
+                            data-built="A single-page site — six sections, no dependencies. Direct copy, warm palette, no jargon."
+                            data-result="Assad.one is the public face of the GTM advisory practice.">
+                            <span class="project-dot" style="background:#c4963a"></span>
+                            <div>
+                                <div class="project-name">Assad.one</div>
+                                <div class="project-desc">GTM advisory firm site.</div>
+                            </div>
+                        </button>
+                    </div>
+
                 </div>
 
-                <div class="work-card" onclick="activateCard(this)">
-                    <div class="work-card-bar" style="background:#4a7fd4"></div>
-                    <span class="work-card-label">Problem</span>
-                    <div class="work-card-content">
-                        <div class="work-card-title">Problem</div>
-                        <div class="work-card-body">Design, copy, operations — constant decisions, no process to run any of them.</div>
+                <div class="project-detail" id="project-detail">
+                    <div class="detail-header">
+                        <span class="detail-dot" id="detail-dot"></span>
+                        <span class="detail-title" id="detail-title"></span>
                     </div>
-                </div>
-
-                <div class="work-card" onclick="activateCard(this)">
-                    <div class="work-card-bar" style="background:#3d9e82"></div>
-                    <span class="work-card-label">Built</span>
-                    <div class="work-card-content">
-                        <div class="work-card-title">Built</div>
-                        <div class="work-card-body">Three orchestrated agents: design and code, communications, methodology.</div>
-                    </div>
-                </div>
-
-                <div class="work-card" onclick="activateCard(this)">
-                    <div class="work-card-bar" style="background:#5dad6a"></div>
-                    <span class="work-card-label">Result</span>
-                    <div class="work-card-content">
-                        <div class="work-card-title">Result</div>
-                        <div class="work-card-body">The site, the copy, the firm's operating system. Built using the method.</div>
+                    <div class="detail-cols">
+                        <div class="detail-col">
+                            <div class="detail-label">Problem</div>
+                            <div class="detail-body" id="detail-problem"></div>
+                        </div>
+                        <div class="detail-col">
+                            <div class="detail-label" id="detail-label-built">Built</div>
+                            <div class="detail-body" id="detail-built"></div>
+                        </div>
+                        <div class="detail-col">
+                            <div class="detail-label" id="detail-label-result">Result</div>
+                            <div class="detail-body" id="detail-result"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -838,12 +990,27 @@
             el.href = "mai" + "lto:" + u + "@" + d;
         })();
 
-        // Work card accordion
-        function activateCard(el) {
-            document.querySelectorAll('.work-card').forEach(function(c) {
-                c.classList.remove('active');
-            });
-            el.classList.add('active');
+        // Project pipeline
+        var activeProjectBtn = null;
+        function toggleProject(btn) {
+            var detail = document.getElementById('project-detail');
+            if (activeProjectBtn === btn) {
+                detail.classList.remove('open');
+                btn.classList.remove('active');
+                activeProjectBtn = null;
+                return;
+            }
+            if (activeProjectBtn) activeProjectBtn.classList.remove('active');
+            activeProjectBtn = btn;
+            btn.classList.add('active');
+            document.getElementById('detail-dot').style.background  = btn.dataset.color;
+            document.getElementById('detail-title').textContent     = btn.dataset.name;
+            document.getElementById('detail-problem').textContent   = btn.dataset.problem;
+            document.getElementById('detail-built').textContent     = btn.dataset.built;
+            document.getElementById('detail-result').textContent    = btn.dataset.result;
+            document.getElementById('detail-label-built').textContent  = btn.dataset.labelBuilt  || 'Built';
+            document.getElementById('detail-label-result').textContent = btn.dataset.labelResult || 'Result';
+            detail.classList.add('open');
         }
 
         // Navigation
