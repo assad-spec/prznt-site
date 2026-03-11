@@ -101,6 +101,40 @@
             letter-spacing: 0.03em;
         }
 
+        /* ── Hero layout ───────────────────── */
+        .hero-layout {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            width: 100%;
+        }
+
+        .hero-text { flex: 0 0 auto; }
+
+        .hero-photo {
+            flex: 1;
+            height: clamp(340px, 65vh, 600px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-photo img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            -webkit-mask-image:
+                linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+                linear-gradient(to right,  transparent 0%, black 18%, black 88%, transparent 100%);
+            -webkit-mask-composite: destination-in;
+            mask-image:
+                linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+                linear-gradient(to right,  transparent 0%, black 18%, black 88%, transparent 100%);
+            mask-composite: intersect;
+        }
+
         /* ── Process ──────────────────────── */
         .process {
             width: 100%;
@@ -507,6 +541,9 @@
 
             .hero-sub { font-size: 15px; margin-top: 24px; }
 
+            .hero-layout { gap: 0; }
+            .hero-photo  { display: none; }
+
             .process { max-width: 100%; }
 
             .process-row {
@@ -715,11 +752,16 @@
     <div class="slider" id="slider">
 
         <!-- Panel 1: Hero -->
-        <div class="panel">
+        <div class="panel" id="panel1">
             <div class="wordmark a1">Prznt</div>
-            <div>
-                <h1 class="hero-headline a2">Agentic engineering.</h1>
-                <p class="hero-sub a2">Orchestrated agents building custom applications. For you.</p>
+            <div class="hero-layout">
+                <div class="hero-text">
+                    <h1 class="hero-headline a2">Agentic engineering.</h1>
+                    <p class="hero-sub a2">Orchestrated agents building custom applications. For you.</p>
+                </div>
+                <div class="hero-photo">
+                    <img src="assets/Dahlias.jpg" alt="">
+                </div>
             </div>
         </div>
 
