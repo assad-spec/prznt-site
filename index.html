@@ -835,9 +835,9 @@
             <div class="project-dashboard">
 
                 <div class="pipeline-tabs" id="pipeline-tabs">
-                    <button class="pipeline-tab active" onclick="switchPipelineTab('possible')">Possible</button>
-                    <button class="pipeline-tab" onclick="switchPipelineTab('new')">New</button>
-                    <button class="pipeline-tab" onclick="switchPipelineTab('completed')">Completed</button>
+                    <button class="pipeline-tab active" data-col="possible" onclick="switchPipelineTab('possible')">Possible</button>
+                    <button class="pipeline-tab" data-col="new" onclick="switchPipelineTab('new')">New</button>
+                    <button class="pipeline-tab" data-col="completed" onclick="switchPipelineTab('completed')">Completed</button>
                 </div>
 
                 <div class="pipeline-cols">
@@ -1018,15 +1018,15 @@
 
         // Project pipeline
         var activeProjectBtn = null;
+
+        function closeDetailPanel() {
+            document.getElementById('project-detail').classList.remove('open');
+            if (activeProjectBtn) { activeProjectBtn.classList.remove('active'); activeProjectBtn = null; }
+        }
+
         function toggleProject(btn) {
-            var detail = document.getElementById('project-detail');
-            if (activeProjectBtn === btn) {
-                detail.classList.remove('open');
-                btn.classList.remove('active');
-                activeProjectBtn = null;
-                return;
-            }
-            if (activeProjectBtn) activeProjectBtn.classList.remove('active');
+            if (activeProjectBtn === btn) { closeDetailPanel(); return; }
+            closeDetailPanel();
             activeProjectBtn = btn;
             btn.classList.add('active');
             document.getElementById('detail-dot').style.background  = btn.dataset.color;
@@ -1036,15 +1036,13 @@
             document.getElementById('detail-result').textContent    = btn.dataset.result;
             document.getElementById('detail-label-built').textContent  = btn.dataset.labelBuilt  || 'Built';
             document.getElementById('detail-label-result').textContent = btn.dataset.labelResult || 'Result';
-            detail.classList.add('open');
+            document.getElementById('project-detail').classList.add('open');
         }
 
         function switchPipelineTab(name) {
-            var detail = document.getElementById('project-detail');
-            detail.classList.remove('open');
-            if (activeProjectBtn) { activeProjectBtn.classList.remove('active'); activeProjectBtn = null; }
+            closeDetailPanel();
             document.querySelectorAll('.pipeline-tab').forEach(function(t) {
-                t.classList.toggle('active', t.getAttribute('onclick').indexOf(name) !== -1);
+                t.classList.toggle('active', t.dataset.col === name);
             });
             document.querySelectorAll('.pipeline-col').forEach(function(col) {
                 col.classList.toggle('pipeline-col--active', col.dataset.col === name);
