@@ -94,12 +94,15 @@
         }
 
         .hero-sub {
-            margin-top: 32px;
+            margin-top: 28px;
             font-size: 17px;
             font-weight: 300;
             color: var(--muted);
             letter-spacing: 0.03em;
+            max-width: 540px;
+            line-height: 1.6;
         }
+
 
         /* ── Hero layout ───────────────────── */
         .hero-layout {
@@ -366,13 +369,14 @@
 
         /* ── Panel Title ───────────────────── */
         .panel-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 24px;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 36px;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 20px;
+        }
+        #panel-work {
+            justify-content: center;
         }
         #panel-work:has(#project-detail.open) .panel-title {
             display: none;
@@ -553,11 +557,11 @@
                 letter-spacing: -0.3px;
             }
 
-            .hero-sub { font-size: 15px; margin-top: 24px; }
 
             .hero-layout { gap: 0; }
             .hero-text   { flex: 1 1 0; min-width: 0; }
             .hero-photo  { display: none; }
+            .hero-sub { font-size: 15px; margin-top: 20px; }
 
             .process { max-width: 100%; }
 
@@ -775,8 +779,8 @@
             <div class="wordmark a1">Prznt</div>
             <div class="hero-layout">
                 <div class="hero-text">
-                    <h1 class="hero-headline a2">Agentic engineering.</h1>
-                    <p class="hero-sub a2">Orchestrated agents building custom applications.</p>
+                    <h1 class="hero-headline a2">Building custom applications with agentic engineering.</h1>
+                    <p class="hero-sub">Solutions engineered for your specific workflows. Scalable, secure, reliable, fast and cost efficient.</p>
                 </div>
                 <div class="hero-photo">
                     <img src="assets/Dahlias.jpg" alt="">
@@ -893,7 +897,6 @@
         <!-- Panel 3: Work -->
         <div class="panel" id="panel-work">
             <div class="wordmark">Prznt</div>
-            <div class="panel-title">Applications</div>
             <div class="project-dashboard">
 
                 <div class="pipeline-tabs" id="pipeline-tabs">
@@ -901,6 +904,8 @@
                     <button class="pipeline-tab" data-col="new" onclick="switchPipelineTab('new')">New</button>
                     <button class="pipeline-tab" data-col="completed" onclick="switchPipelineTab('completed')">Completed</button>
                 </div>
+
+                <div class="panel-title">Applications</div>
 
                 <div class="pipeline-cols">
 
@@ -1048,7 +1053,7 @@
                 </div>
                 <div class="contact-wrap">
                     <p class="contact-head">When you're ready.</p>
-                    <a class="contact-email" id="contact-link" href="#">—</a>
+                    <p class="contact-close">We understand business, engineering and product.</p>
                     <p class="contact-close">Your workflow learned.<br>Your application built.</p>
                 </div>
             </div>
@@ -1069,15 +1074,6 @@
     </nav>
 
     <script>
-        // Email obfuscation
-        (function() {
-            var u = "assad";
-            var d = "assad.one";
-            var el = document.getElementById("contact-link");
-            el.textContent = u + "@" + d;
-            el.href = "mai" + "lto:" + u + "@" + d;
-        })();
-
         // Project pipeline
         var activeProjectBtn = null;
 
