@@ -364,6 +364,20 @@
         }
 
 
+        /* ── Panel Title ───────────────────── */
+        .panel-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+        #panel-work:has(#project-detail.open) .panel-title {
+            display: none;
+        }
+
         /* ── Project Dashboard ─────────────── */
         .project-dashboard {
             width: 100%;
@@ -604,6 +618,10 @@
             .process-layout .process { max-width: 100%; }
 
             .dots { bottom: 24px; }
+
+            #panel-work .wordmark {
+                display: none;
+            }
 
             .pipeline-tabs {
                 display: flex;
@@ -875,6 +893,7 @@
         <!-- Panel 3: Work -->
         <div class="panel" id="panel-work">
             <div class="wordmark">Prznt</div>
+            <div class="panel-title">Applications</div>
             <div class="project-dashboard">
 
                 <div class="pipeline-tabs" id="pipeline-tabs">
