@@ -368,18 +368,33 @@
 
 
         /* ── Panel Title ───────────────────── */
+        .panel-title-row {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
         .panel-title {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 36px;
             font-weight: 400;
             color: var(--ink);
-            margin-bottom: 20px;
+            margin-bottom: 0;
+        }
+        .panel-clock {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--muted);
+            letter-spacing: 0.06em;
+            font-variant-numeric: tabular-nums;
+        }
+        #panel-date {
+            font-weight: 600;
+            color: var(--ink);
         }
         #panel-work {
             justify-content: center;
-        }
-        #panel-work:has(#project-detail.open) .panel-title {
-            display: none;
         }
 
         /* ── Project Dashboard ─────────────── */
@@ -624,6 +639,9 @@
             .dots { bottom: 24px; }
 
             #panel-work .wordmark {
+                display: none;
+            }
+            #panel-work:has(#project-detail.open) .panel-title-row {
                 display: none;
             }
 
@@ -905,7 +923,10 @@
                     <button class="pipeline-tab" data-col="completed" onclick="switchPipelineTab('completed')">Completed</button>
                 </div>
 
-                <div class="panel-title">Applications</div>
+                <div class="panel-title-row">
+                    <div class="panel-title">Applications</div>
+                    <span class="panel-clock"><span id="panel-date"></span> <span id="panel-time"></span></span>
+                </div>
 
                 <div class="pipeline-cols">
 
@@ -1074,6 +1095,23 @@
     </nav>
 
     <script>
+        // Live clock
+        (function() {
+            var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var dateEl = document.getElementById('panel-date');
+            var timeEl = document.getElementById('panel-time');
+            function tick() {
+                var now = new Date();
+                dateEl.textContent = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+                var h = String(now.getHours()).padStart(2, '0');
+                var m = String(now.getMinutes()).padStart(2, '0');
+                var s = String(now.getSeconds()).padStart(2, '0');
+                timeEl.textContent = h + ':' + m + ':' + s;
+            }
+            tick();
+            setInterval(tick, 1000);
+        })();
+
         // Project pipeline
         var activeProjectBtn = null;
 
